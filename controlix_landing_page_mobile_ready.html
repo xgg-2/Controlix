@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Controlix • The Discord Utility Bot</title>
+  <meta name="description" content="Controlix — tickets, giveaways, welcome, AI, games and more. A clean, handcrafted landing page in a single HTML file."/>
+  <meta name="theme-color" content="#23262f" />
+  <meta property="og:title" content="Controlix — The Discord Utility Bot" />
+  <meta property="og:description" content="Tickets • Giveaways • Welcome • AI • Games • Moderation" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='48' fill='%235865F2'/%3E%3Cpath fill='white' d='M128 164h256v40H128zM128 236h200v40H128zM128 308h256v40H128z'/%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%235865F2'/%3E%3Cpath fill='white' d='M18 20h28v6H18zM18 30h20v6H18zM18 40h28v6H18z'/%3E%3C/svg%3E" />
+  <style>
+    :root{
+      --bg:#0f1220;        /* deep night */
+      --panel:#161a2e;     /* card */
+      --muted:#a7b1c2;     /* text secondary */
+      --text:#e9eef7;      /* text */
+      --brand:#5865F2;     /* Discord blurple */
+      --brand-2:#8b9afe;   /* lighter accent */
+      --ok:#22c55e; --warn:#f59e0b; --danger:#ef4444;
+      --radius:14px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue";background:
+      radial-gradient(1200px 600px at 10% -10%, rgba(88,101,242,.18), transparent 60%),
+      radial-gradient(1200px 600px at 110% 0%, rgba(139,154,254,.12), transparent 60%),
+      var(--bg);
+      color:var(--text);
+      letter-spacing:.2px;
+    }
+    a{color:var(--brand);text-decoration:none}
+    .wrap{max-width:1100px;margin:0 auto;padding:28px}
+    .glass{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.01)); border:1px solid rgba(255,255,255,.06); border-radius:var(--radius); box-shadow:var(--shadow)}
+    /* Header */
+    header{position:sticky;top:0;z-index:40;backdrop-filter:blur(10px)}
+    .nav{display:flex;gap:14px;align-items:center;justify-content:space-between;padding:12px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:44px;height:44px;display:grid;place-items:center;border-radius:11px;background:linear-gradient(135deg,var(--brand),var(--brand-2));font-weight:900;color:#0b0e1a;box-shadow:0 6px 18px rgba(88,101,242,.35)}
+    .links{display:flex;gap:10px;align-items:center}
+    .links a{padding:8px 10px;border-radius:8px;color:var(--muted)}
+    .links a:hover{background:rgba(255,255,255,.04);color:var(--text)}
+    .cta{display:flex;gap:10px;flex-wrap:wrap}
+    .btn{background:linear-gradient(90deg,var(--brand),var(--brand-2));border:none;color:#0b0e1a;font-weight:800;padding:10px 14px;border-radius:10px;cursor:pointer}
+    .btn:hover{transform:translateY(-1px)}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,.1);color:var(--text)}
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;padding-top:18px}
+    h1{font-size:clamp(28px,5.2vw,48px);margin:0 0 6px}
+    p.lead{color:var(--muted);line-height:1.65;max-width:66ch}
+    /* Feature grid */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .card{padding:16px;border-radius:var(--radius);background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.06)}
+    .feature{display:flex;gap:12px}
+    .ico{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;background:rgba(88,101,242,.1);border:1px solid rgba(88,101,242,.25)}
+    .muted{color:var(--muted)}
+    /* Showcase image */
+    .shot{height:280px;border-radius:var(--radius);overflow:hidden;background:linear-gradient(90deg, rgba(88,101,242,.25), rgba(139,154,254,.2));display:grid;place-items:center;border:1px solid rgba(255,255,255,.06)}
+    /* Stats + FAQ */
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+    .stat{padding:14px;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);text-align:center}
+    .faq .q{cursor:pointer;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.02)}
+    .faq .a{display:none;padding:10px 14px;color:var(--muted)}
+    /* Footer */
+    footer{margin-top:40px;padding:18px 0;color:var(--muted)}
+    /* Responsive */
+    @media (max-width:980px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr}}
+    @media (max-width:600px){.grid{grid-template-columns:1fr}}
+    /* Subtle entrance */
+    .reveal{opacity:0;transform:translateY(14px);transition:all .6s ease}
+    .reveal.show{opacity:1;transform:none}
+  
+/* Responsive fixes for mobile devices */
+@media (max-width: 768px) {
+  .nav {flex-direction: column; align-items: flex-start;}
+  .links {flex-wrap: wrap; gap: 6px;}
+  .hero {grid-template-columns: 1fr; text-align: center;}
+  .hero .cta {justify-content: center; flex-wrap: wrap;}
+  .grid {grid-template-columns: 1fr;}
+  .stats {grid-template-columns: 1fr 1fr;}
+  .card {padding: 12px;}
+}
+
+@media (max-width: 480px) {
+  .nav {gap: 8px;}
+  .cta a {width: 100%; text-align: center;}
+  h1 {font-size: 1.6rem;}
+  h2 {font-size: 1.2rem;}
+  p {font-size: 0.95rem;}
+  .stats {grid-template-columns: 1fr;}
+}
+
+</style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="glass">
+    <div class="wrap nav">
+      <div class="brand">
+        <div class="logo">Ctl</div>
+        <div>
+          <div style="font-weight:900;letter-spacing:.2px">Controlix</div>
+          <div style="font-size:12px;color:var(--muted)">Tickets • Giveaways • Welcome • AI • Games</div>
+        </div>
+      </div>
+      <nav class="links" aria-label="Primary">
+        <a href="#features">Features</a>
+        <a href="#showcase">Showcase</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="cta">
+        <a class="btn" href="#" id="inviteLink">Invite Bot</a>
+        <a class="btn btn-ghost" href="#" id="supportLink">Join Support</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap" style="padding-top:22px">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="reveal">
+        <h1>Your server, under control.</h1>
+        <p class="lead">Controlix is a carefully crafted Discord bot combining <strong>ticketing</strong>, <strong>giveaways</strong>, <strong>welcome</strong> flows, <strong>AI tools</strong> and <strong>mini games</strong> — without the bloat. Built for clarity, speed and reliability.</p>
+        <div class="cta" style="margin-top:14px">
+          <a class="btn" href="#" id="heroInvite">Add to Discord</a>
+          <a class="btn btn-ghost" href="#features">Explore features</a>
+        </div>
+        <div class="muted" style="margin-top:10px;font-size:13px">No login required to preview. Lightweight by design.</div>
+      </div>
+      <aside class="reveal">
+        <div class="shot">
+          <!-- Inline SVG mockup (hand-drawn feel) -->
+          <svg viewBox="0 0 800 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Controlix dashboard mockup">
+            <defs>
+              <linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#5865F2"/><stop offset="1" stop-color="#8b9afe"/></linearGradient>
+            </defs>
+            <rect x="0" y="0" width="800" height="460" rx="18" fill="#0f1220" />
+            <rect x="24" y="20" width="752" height="60" rx="10" fill="#131733" />
+            <rect x="24" y="100" width="250" height="320" rx="12" fill="#131733" />
+            <rect x="294" y="100" width="482" height="320" rx="12" fill="#131733" />
+            <rect x="314" y="126" width="180" height="14" rx="7" fill="url(#g)"/>
+            <rect x="314" y="152" width="240" height="10" rx="6" fill="#293055"/>
+            <rect x="314" y="182" width="420" height="10" rx="6" fill="#293055"/>
+            <rect x="314" y="220" width="340" height="160" rx="10" fill="#0f1220" stroke="#2a3258"/>
+            <rect x="44" y="126" width="160" height="12" rx="6" fill="#293055"/>
+            <rect x="44" y="154" width="180" height="10" rx="6" fill="#293055"/>
+            <rect x="44" y="188" width="210" height="90" rx="10" fill="#0f1220" stroke="#2a3258"/>
+            <rect x="44" y="296" width="210" height="90" rx="10" fill="#0f1220" stroke="#2a3258"/>
+          </svg>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="reveal" style="margin-top:28px">
+      <h2 style="margin:0 0 10px">Features that matter</h2>
+      <p class="muted" style="margin:0 0 14px">Focused, reliable modules. Everything you need, nothing you don't.</p>
+      <div class="grid">
+        <!-- Ticketing -->
+        <article class="card feature">
+          <div class="ico" aria-hidden="true"> 
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 7a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v3a2 2 0 0 0-2 2 2 2 0 0 0 2 2v3a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3v-3a2 2 0 1 0 0-4V7Z" stroke="currentColor" stroke-width="1.6"/></svg>
+          </div>
+          <div>
+            <h3 style="margin:0">Tickets</h3>
+            <p class="muted" style="margin:6px 0 0">Create, assign and archive support tickets with clean transcripts.</p>
+          </div>
+        </article>
+        <!-- Giveaways -->
+        <article class="card feature">
+          <div class="ico" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 7c.8-2.5-2.5-3.3-3.6-1.3C7 8 9.4 9 12 7Zm0 0c-.8-2.5 2.5-3.3 3.6-1.3C17 8 14.6 9 12 7Z" stroke="currentColor" stroke-width="1.6"/><path d="M3 12h18M5 12v9h14v-9" stroke="currentColor" stroke-width="1.6"/></svg>
+          </div>
+          <div>
+            <h3 style="margin:0">Giveaways</h3>
+            <p class="muted" style="margin:6px 0 0">Time-based draws, multi-winner, reroll and fair pick logic.</p>
+          </div>
+        </article>
+        <!-- Welcome -->
+        <article class="card feature">
+          <div class="ico" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.6"/><path d="M4.5 19c1.6-3.2 4.3-5 7.5-5s5.9 1.8 7.5 5" stroke="currentColor" stroke-width="1.6"/></svg>
+          </div>
+          <div>
+            <h3 style="margin:0">Welcome</h3>
+            <p class="muted" style="margin:6px 0 0">Custom greetings, role auto-assign and channel templates.</p>
+          </div>
+        </article>
+        <!-- AI Tools -->
+        <article class="card feature">
+          <div class="ico" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="6" width="18" height="12" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="M8.5 12h7" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="6.5" stroke="currentColor" opacity=".35"/></svg>
+          </div>
+          <div>
+            <h3 style="margin:0">AI</h3>
+            <p class="muted" style="margin:6px 0 0">Smart replies and tools for moderation and fun — configurable.</p>
+          </div>
+        </article>
+        <!-- Games -->
+        <article class="card feature">
+          <div class="ico" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="9" width="18" height="8" rx="4" stroke="currentColor" stroke-width="1.6"/><path d="M8 13v-2m0 2h-2m10 0h.01m2 0h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <h3 style="margin:0">Games</h3>
+            <p class="muted" style="margin:6px 0 0">Quick minigames and leaderboards to keep members engaged.</p>
+          </div>
+        </article>
+        <!-- Moderation -->
+        <article class="card feature">
+          <div class="ico" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3 4 7v5c0 5 3.6 7.7 8 9 4.4-1.3 8-4 8-9V7l-8-4Z" stroke="currentColor" stroke-width="1.6"/><path d="M9.5 12.5 11 14l3.5-3.5" stroke="currentColor" stroke-width="1.6"/></svg>
+          </div>
+          <div>
+            <h3 style="margin:0">Moderation</h3>
+            <p class="muted" style="margin:6px 0 0">Timeouts, logs and role tools that stay out of the way.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Showcase / Screenshot area -->
+    <section id="showcase" class="reveal" style="margin-top:28px">
+      <div class="card" style="padding:18px;display:grid;grid-template-columns:1.3fr .7fr;gap:16px;align-items:center">
+        <div>
+          <h2 style="margin:0 0 8px">Fast setup, no clutter</h2>
+          <p class="muted" style="margin:0 0 10px">Slash commands with sensible defaults. Friendly UX. Clean logs. You focus on your community — Controlix handles the rest.</p>
+          <div class="cta">
+            <a class="btn" href="#" id="inviteCta">Invite Controlix</a>
+            <a class="btn btn-ghost" href="#" id="supportCta">Support Server</a>
+          </div>
+        </div>
+        <div class="shot" aria-hidden="true">
+          <svg viewBox="0 0 800 460" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="g2" x1="0" x2="1"><stop offset="0" stop-color="#5865F2"/><stop offset="1" stop-color="#8b9afe"/></linearGradient></defs>
+            <rect width="800" height="460" rx="18" fill="#0f1220"/>
+            <rect x="26" y="22" width="748" height="416" rx="12" fill="#131733"/>
+            <rect x="42" y="42" width="300" height="18" rx="9" fill="url(#g2)"/>
+            <rect x="42" y="80" width="716" height="14" rx="7" fill="#25305a"/>
+            <rect x="42" y="108" width="716" height="14" rx="7" fill="#25305a"/>
+            <rect x="42" y="166" width="240" height="240" rx="10" fill="#0f1220" stroke="#2a3258"/>
+            <rect x="302" y="166" width="456" height="240" rx="10" fill="#0f1220" stroke="#2a3258"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats + FAQ -->
+    <section id="faq" class="reveal" style="margin-top:28px">
+      <div class="card" style="padding:18px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div>
+            <h2 style="margin:0 0 10px">Quick facts</h2>
+            <div class="stats">
+              <div class="stat"><div style="font-weight:900;font-size:22px" id="srv">1,200+</div><div class="muted" style="font-size:12px">Servers</div></div>
+              <div class="stat"><div style="font-weight:900;font-size:22px" id="usr">75k+</div><div class="muted" style="font-size:12px">Users</div></div>
+              <div class="stat"><div style="font-weight:900;font-size:22px" id="upt">99.9%</div><div class="muted" style="font-size:12px">Uptime</div></div>
+              <div class="stat"><div style="font-weight:900;font-size:22px" id="lat">< 100ms</div><div class="muted" style="font-size:12px">Latency</div></div>
+            </div>
+            <div class="muted" style="font-size:12px;margin-top:8px">*Numbers are placeholders — hook them to your real stats when ready.</div>
+          </div>
+          <div>
+            <h2 style="margin:0 0 10px">FAQ</h2>
+            <div class="faq">
+              <div class="q">Is Controlix free?</div>
+              <div class="a">Yes. Core features are free. Optional premium modules can be enabled later.</div>
+              <div class="q" style="margin-top:8px">Do I need admin permissions?</div>
+              <div class="a">Invite requires Manage Server; specific features follow least-privilege principles.</div>
+              <div class="q" style="margin-top:8px">Can I disable modules I don't need?</div>
+              <div class="a">Absolutely. Toggle features per server and role with one command.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="reveal">
+      <div class="wrap" style="padding:0;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <div class="muted">© Controlix — handcrafted landing page • single-file</div>
+        <div class="cta">
+          <a class="btn" href="#" id="footerInvite">Invite</a>
+          <a class="btn btn-ghost" href="#" id="footerSupport">Support</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // ---- Smooth reveal on scroll (handwritten, no libs) ----
+    const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');io.unobserve(e.target)}}),{threshold:.14});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // ---- FAQ accordion ----
+    document.querySelectorAll('.faq .q').forEach(q=>q.addEventListener('click',()=>{
+      const a=q.nextElementSibling; const v=getComputedStyle(a).display!=='none';
+      document.querySelectorAll('.faq .a').forEach(x=>x.style.display='none');
+      a.style.display=v?'none':'block';
+    }));
+
+    // ---- Link wiring (put your real links below once) ----
+    const INVITE_URL = '#PUT_YOUR_INVITE_LINK_HERE';
+    const SUPPORT_URL = '#PUT_YOUR_SUPPORT_LINK_HERE';
+    ['inviteLink','heroInvite','inviteCta','footerInvite'].forEach(id=>document.getElementById(id).href = INVITE_URL);
+    ['supportLink','supportCta','footerSupport'].forEach(id=>document.getElementById(id).href = SUPPORT_URL);
+
+    // ---- Micro polish: button focus, small key nav ----
+    document.addEventListener('keydown',e=>{if(e.key==='/' && document.activeElement===document.body){e.preventDefault();document.querySelector('#features')?.scrollIntoView({behavior:'smooth'});} });
+  </script>
+</body>
+</html>
